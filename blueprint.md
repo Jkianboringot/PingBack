@@ -26,7 +26,9 @@ i will focus mostly on backend and i dont care much for frontend so i can just c
 
 # Step 1 data base
     1.create ui with admin lte 
-        -becuase am loss and dont know how to do without looking at shit first
+        -becuase am loss and dont know how to do without looking at shit first✔
+        - i will actaully just make this just like 
+    2.connect to controller 
 
 # Step 2 data base
     1.table user,post,comment✔
@@ -39,7 +41,7 @@ i will focus mostly on backend and i dont care much for frontend so i can just c
 
 
 # Step 4 login
-
+    1.config the login controller
 
 
 
