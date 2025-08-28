@@ -17,9 +17,12 @@ class SignupCtrl extends Signup{
 
     }
     
-    protected function registerUser(){
-         $signup=new Signup($this->name,$this->email,$this->pwd);
+    protected function mount(){
+        $signup=new Signup($this->name,$this->email,$this->pwd);
          return $signup;
+    }
+    protected function createUser(){
+         $this->mount();
     }
 
     protected function emptyInput(){
@@ -32,12 +35,17 @@ class SignupCtrl extends Signup{
     }
     
 
-    protected function isEmailvalid(){
-        $signup=new Signup($this->name,$this->email,$this->pwd);
-        $signup->isValidEmail();
+    protected function isEmailRegistered(){
+      $this->mount()->isValidEmail();
     }
 
 
+    protected function allowUpdate(){
+        if ($this->userUpdate()){
+            return true;
+        }
+        return false;
+    }
 
 }
 
@@ -46,7 +54,7 @@ class SignupCtrl extends Signup{
     // 1.input validation
         // -empty input✔
         // -email taken✔
-    // 2.create user
+    // 2.create user👌
     // 3. user allowrd to update?
 
 
