@@ -2,6 +2,7 @@
 namespace Models;
 
 use Database\Dbh;
+require_once '../Database/Dbh.php';
 
 class Signup extends Dbh {
     protected $name;
@@ -29,7 +30,7 @@ class Signup extends Dbh {
 
 
     protected function userSignup(){
-        $query='insert into users (name,email,pwd_hash) value (:name,:email,:pwd)';
+        $query='insert into users (username,email,pwd_hash) value (:name,:email,:pwd)';
 
         // i cannot put the validation logic here becuase this is only for $quering 
         // the database not for logic handling this is only for retriving and inputing 
@@ -58,7 +59,8 @@ class Signup extends Dbh {
 
 
         if(password_verify($this->pwd,$target)){
-        $stmt=parent::connection()->prepare($query);    
+        $stmt=parent::connection()->prepare($query); 
+           
         $stmt->bindParam(':email',$this->email);
         $stmt->bindParam(':pwd',$pwd);
         $stmt->execute(); }

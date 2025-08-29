@@ -5,7 +5,7 @@ use PDO;
 use PDOException;
 class Dbh
 {
-    protected $dsn = 'mysql:host=localhost,dbname=phpapp';
+    protected $dsn = 'mysql:host=localhost;dbname=learningphp';
     protected $dbname = 'root';
     protected $dbpwd = 'root';
 
@@ -16,7 +16,7 @@ class Dbh
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (PDOException $th) {
-            die('connection failed' . $th->getMessage());
+            die('connection faileds' . $th->getMessage());
         }
     }
 }

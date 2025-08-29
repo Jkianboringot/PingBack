@@ -2,7 +2,7 @@
 namespace Controllers;
 
 use Models\Signup;
-
+require_once '../Models/Signup.php';
 class SignupCtrl extends Signup{
     protected $name;
     protected $email;
@@ -21,8 +21,10 @@ class SignupCtrl extends Signup{
         $signup=new Signup($this->name,$this->email,$this->pwd);
          return $signup;
     }
-    protected function createUser(){
-         $this->mount();
+
+    
+    public function createUser(){
+         $this->mount()->userSignup();
     }
 
     protected function emptyInput(){
