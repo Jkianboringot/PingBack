@@ -2,6 +2,8 @@
 namespace Models;
 
 use Database\Dbh;
+use PDO;
+
 require_once '../Database/Dbh.php';
 
 class Login extends Dbh {
@@ -13,28 +15,46 @@ class Login extends Dbh {
         $this->email=$email;
         $this->pwd=$pwd;
     }
-    
+
+   
+
+    protected function registeredEmail(){
+         try {
+          $query='Select count(*) From users where email=:email';
+        $stmt=parent::connection()->prepare($query);
+        $stmt->bindParam(':email',$this->email);
+        $stmt->execute();
+        $count=$stmt->fetchColumn();
+        return $count>=1;
+
+        } catch (\Throwable $th) {
+           die('qeurey failed:' . $th->getMessage());
+        }
+
+        
+    }
 
     protected function userLogin(){
 
         try {
+      
+             $target='select * from users where email=:email';
+               $stmt=parent::connection()->prepare($target); 
+                    $stmt->bindParam(':email',$this->email);
+                    $stmt->bindParam(':pwd',$this->pwd);
+                    $stmt->execute();
+                  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                if(password_verify($this->pwd,$result['pwd_hash'])){
+                    return true;
         
-       $target='select pwd_hash from users where email=:email';
-
-
-        if(password_verify($this->pwd,$target)){
-        $stmt=parent::connection()->prepare($target); 
-        $stmt->bindParam(':email',$this->email);
-        $stmt->bindParam(':pwd',$pwd);
-        $stmt->execute(); 
-        return true;
     }
-    else{
-        return true;
-    }
+   else {
+
+     return false;
+   }
 
         } catch (\Throwable $th) {
-            echo 'fail query'.$th->getMessage();
+          die('qeurey failed:' . $th->getMessage());
         }
 
         

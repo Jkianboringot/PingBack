@@ -10,5 +10,6 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
     $pwd=$_POST['pwd']; 
 
     $signUpUser=new SignupCtrl($name,$email,$pwd);
+   
     $signUpUser->createUser();
 }
